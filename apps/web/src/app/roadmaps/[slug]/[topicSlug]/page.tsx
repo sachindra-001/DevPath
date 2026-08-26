@@ -1,19 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { fetchTopicBySlug, fetchRoadmapBySlug } from "@/lib/api";
-import {
-  ArrowLeft,
-  Clock,
-  CheckCircle2,
-  ListChecks,
-  Link as LinkIcon,
-  ExternalLink,
-  BookOpen,
-  Sparkles,
-  ChevronRight,
-  Video,
-  FileText,
-} from "lucide-react";
 
 export const revalidate = 60;
 
@@ -33,198 +20,183 @@ export default async function TopicDetailPage({ params }: PageProps) {
     notFound();
   }
 
-  const getDifficultyColor = (diff: string) => {
-    switch (diff) {
-      case "beginner":
-        return "text-emerald-700 bg-emerald-50 border-emerald-200";
-      case "intermediate":
-        return "text-indigo-700 bg-indigo-50 border-indigo-200";
-      case "advanced":
-        return "text-purple-700 bg-purple-50 border-purple-200";
-      default:
-        return "text-slate-700 bg-slate-50 border-slate-200";
-    }
-  };
-
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Breadcrumbs */}
-      <nav className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
-        <Link href="/roadmaps" className="hover:text-foreground transition-colors">
-          Roadmaps
-        </Link>
-        <ChevronRight className="h-3 w-3" />
-        <Link
-          href={`/roadmaps/${slug}`}
-          className="hover:text-foreground transition-colors font-medium"
-        >
-          {roadmap?.title || slug}
-        </Link>
-        <ChevronRight className="h-3 w-3" />
-        <span className="text-foreground font-semibold">{topic.title}</span>
-      </nav>
+    <div className="flex flex-col w-full relative">
+      <div className="absolute inset-0 pointer-events-none opacity-20 bg-notebook-grid" />
 
-      {/* Main Topic Header */}
-      <div className="mt-6 rounded-3xl border border-border/80 bg-white p-6 shadow-sm sm:p-10">
-        <div className="flex flex-wrap items-center gap-3">
-          <span
-            className={`rounded-full border px-3 py-1 text-xs font-bold uppercase tracking-wider capitalize ${getDifficultyColor(
-              topic.difficulty
-            )}`}
-          >
-            {topic.difficulty}
-          </span>
-          <span className="flex items-center gap-1 text-xs font-medium text-muted-foreground">
-            <Clock className="h-3.5 w-3.5 text-teal-600" />
-            Estimated: ~{topic.estimated_hours || 4} hours
-          </span>
-        </div>
-
-        <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
-          {topic.title}
-        </h1>
-
-        <p className="mt-3 text-base text-muted-foreground leading-relaxed">
-          {topic.description ||
-            `Comprehensive module covering ${topic.title} principles, syntax, and real-world patterns.`}
-        </p>
-
-        {/* Action button back to roadmap */}
-        <div className="mt-6 border-t border-border/60 pt-4">
+      <div className="max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-12 relative z-10">
+        {/* Breadcrumbs */}
+        <nav className="flex items-center gap-2 mb-6 font-label-mono text-on-surface-variant uppercase tracking-wider text-xs">
+          <Link href="/roadmaps" className="hover:text-ink-primary transition-colors">
+            Roadmaps
+          </Link>
+          <span className="material-symbols-outlined text-[16px]">chevron_right</span>
           <Link
             href={`/roadmaps/${slug}`}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline"
+            className="hover:text-ink-primary transition-colors font-bold text-ink-primary"
           >
-            <ArrowLeft className="h-3.5 w-3.5" />
-            <span>Return to full {roadmap?.title || "Roadmap"} outline</span>
+            {roadmap?.title || slug}
           </Link>
+          <span className="material-symbols-outlined text-[16px]">chevron_right</span>
+          <span>{topic.title}</span>
+        </nav>
+
+        {/* Header Section */}
+        <div className="bg-paper-bg border-2 border-ink-primary rounded-xl p-8 shadow-editorial-lg mb-10">
+          <div className="flex flex-wrap gap-2.5 mb-4">
+            <span className="font-label-mono text-xs bg-highlight-yellow border border-ink-primary px-2.5 py-1 rounded text-ink-primary font-bold shadow-editorial-sm">
+              {topic.difficulty}
+            </span>
+            <span className="font-label-mono text-xs bg-surface-container border border-ink-primary px-2.5 py-1 rounded text-on-surface flex items-center gap-1">
+              <span className="material-symbols-outlined text-[16px]">schedule</span>
+              ~{topic.estimated_hours || 4} hours
+            </span>
+          </div>
+
+          <h1 className="font-headline text-3xl sm:text-4xl font-extrabold text-ink-primary mb-3">
+            {topic.title}
+          </h1>
+
+          <p className="font-body text-base text-on-surface-variant leading-relaxed">
+            {topic.description ||
+              `In-depth learning module covering ${topic.title} concepts, syntax, and hands-on patterns.`}
+          </p>
         </div>
-      </div>
 
-      <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-3">
-        {/* Left Column: Learning Objectives & Prerequisites (2 cols) */}
-        <div className="space-y-8 md:col-span-2">
-          {/* Learning Objectives Checklist */}
-          <section className="rounded-2xl border border-border/70 bg-white p-6 shadow-sm">
-            <h2 className="flex items-center gap-2 text-lg font-bold text-foreground">
-              <ListChecks className="h-5 w-5 text-indigo-600" />
-              Learning Objectives
-            </h2>
-            <p className="mt-1 text-xs text-muted-foreground">
-              By the end of this module, you should be able to:
-            </p>
-
-            <ul className="mt-5 space-y-3">
-              {topic.learning_objectives && topic.learning_objectives.length > 0 ? (
-                topic.learning_objectives.map((obj, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm text-foreground/90">
-                    <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-teal-600" />
-                    <span>{obj}</span>
-                  </li>
-                ))
-              ) : (
-                <li className="text-sm text-muted-foreground italic">
-                  No specific learning objectives listed for this topic yet.
-                </li>
-              )}
-            </ul>
-          </section>
-
-          {/* Curated Resources */}
-          <section className="rounded-2xl border border-border/70 bg-white p-6 shadow-sm">
-            <div className="flex items-center justify-between">
-              <h2 className="flex items-center gap-2 text-lg font-bold text-foreground">
-                <BookOpen className="h-5 w-5 text-teal-600" />
-                Curated Resources
+        {/* Learning Objectives & Resources */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Main Column */}
+          <div className="md:col-span-2 space-y-8">
+            {/* Objectives */}
+            <section className="bg-surface-container-lowest border border-ink-primary rounded-xl p-6 shadow-editorial">
+              <h2 className="font-headline font-bold text-lg text-ink-primary mb-4 flex items-center gap-2 border-b border-ink-primary pb-3">
+                <span className="material-symbols-outlined text-teal-600">checklist</span>
+                Learning Objectives
               </h2>
-              <span className="text-xs font-mono text-muted-foreground">
-                {topic.resources.length} verified
-              </span>
-            </div>
 
-            <div className="mt-5 space-y-3.5">
-              {topic.resources && topic.resources.length > 0 ? (
-                topic.resources.map((res) => (
-                  <a
-                    key={res.id}
-                    href={res.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex flex-col justify-between rounded-xl border border-border/70 bg-muted/40 p-4 transition-all hover:border-primary/40 hover:bg-white hover:shadow-sm"
-                  >
-                    <div className="flex items-start justify-between gap-2">
-                      <div className="flex items-center gap-2">
-                        {res.resource_type === "video" ? (
-                          <Video className="h-4 w-4 text-rose-600" />
-                        ) : (
-                          <FileText className="h-4 w-4 text-indigo-600" />
-                        )}
-                        <span className="font-bold text-sm text-foreground group-hover:text-primary transition-colors">
-                          {res.title}
+              <ul className="space-y-3">
+                {topic.learning_objectives && topic.learning_objectives.length > 0 ? (
+                  topic.learning_objectives.map((obj, idx) => (
+                    <li key={idx} className="flex items-start gap-3 text-sm text-ink-primary font-body">
+                      <span className="material-symbols-outlined text-emerald-600 text-[18px] mt-0.5 flex-shrink-0">
+                        check_circle
+                      </span>
+                      <span>{obj}</span>
+                    </li>
+                  ))
+                ) : (
+                  <li className="text-sm text-on-surface-variant italic">
+                    Objectives will be populated automatically by the AI pipeline.
+                  </li>
+                )}
+              </ul>
+            </section>
+
+            {/* Curated Resources */}
+            <section className="bg-surface-container-lowest border border-ink-primary rounded-xl p-6 shadow-editorial">
+              <h2 className="font-headline font-bold text-lg text-ink-primary mb-4 flex items-center justify-between border-b border-ink-primary pb-3">
+                <div className="flex items-center gap-2">
+                  <span className="material-symbols-outlined text-indigo-600">menu_book</span>
+                  <span>Curated Resources</span>
+                </div>
+                <span className="font-label-mono text-xs text-on-surface-variant">
+                  {topic.resources.length} verified
+                </span>
+              </h2>
+
+              <div className="space-y-3.5">
+                {topic.resources && topic.resources.length > 0 ? (
+                  topic.resources.map((res) => (
+                    <a
+                      key={res.id}
+                      href={res.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex flex-col justify-between rounded-lg border border-ink-primary bg-paper-bg p-4 transition-all hover:bg-highlight-yellow/20 hover:shadow-editorial-sm"
+                    >
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="flex items-center gap-2">
+                          <span className="material-symbols-outlined text-[18px] text-ink-primary">
+                            {res.resource_type === "video" ? "movie" : "article"}
+                          </span>
+                          <span className="font-headline font-bold text-sm text-ink-primary group-hover:text-secondary transition-colors">
+                            {res.title}
+                          </span>
+                        </div>
+                        <span className="material-symbols-outlined text-[16px] text-on-surface-variant group-hover:translate-x-0.5 transition-transform flex-shrink-0">
+                          open_in_new
                         </span>
                       </div>
-                      <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
-                    </div>
 
-                    {res.summary && (
-                      <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
-                        {res.summary}
-                      </p>
-                    )}
-
-                    <div className="mt-3 flex items-center gap-3 text-[11px] text-muted-foreground">
-                      <span className="font-mono text-foreground/80">{res.source_domain}</span>
-                      <span className="capitalize">{res.access_type}</span>
-                      {res.is_recommended && (
-                        <span className="inline-flex items-center gap-0.5 font-semibold text-teal-700 bg-teal-50 px-1.5 py-0.5 rounded">
-                          <Sparkles className="h-3 w-3" /> Recommended
-                        </span>
+                      {res.summary && (
+                        <p className="font-body text-xs text-on-surface-variant mt-2 line-clamp-2">
+                          {res.summary}
+                        </p>
                       )}
-                    </div>
-                  </a>
-                ))
-              ) : (
-                <div className="rounded-xl border border-dashed border-border/80 bg-muted/20 p-6 text-center">
-                  <Sparkles className="mx-auto h-6 w-6 text-muted-foreground/60" />
-                  <p className="mt-2 text-sm font-semibold text-foreground">
-                    No resources attached yet
-                  </p>
-                  <p className="mt-1 text-xs text-muted-foreground max-w-sm mx-auto">
-                    The autonomous AI discovery pipeline will crawl and score web resources for this
-                    topic in upcoming phases.
-                  </p>
-                </div>
-              )}
-            </div>
-          </section>
-        </div>
 
-        {/* Right Column: Prerequisites & Context (1 col) */}
-        <div className="space-y-6">
-          <div className="rounded-2xl border border-border/70 bg-white p-6 shadow-sm">
-            <h3 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-foreground">
-              <LinkIcon className="h-4 w-4 text-primary" />
-              Prerequisites
-            </h3>
+                      <div className="mt-3 flex items-center gap-3 font-label-mono text-[10px] text-on-surface-variant border-t border-ink-primary/20 pt-2">
+                        <span>{res.source_domain}</span>
+                        <span className="capitalize">{res.access_type}</span>
+                        {res.is_recommended && (
+                          <span className="bg-accent-lavender text-ink-primary px-1.5 py-0.5 rounded border border-ink-primary">
+                            RECOMMENDED
+                          </span>
+                        )}
+                      </div>
+                    </a>
+                  ))
+                ) : (
+                  <div className="border border-dashed border-ink-primary/60 rounded-lg p-6 text-center bg-surface-container">
+                    <span className="material-symbols-outlined text-on-surface-variant text-3xl mb-2">
+                      travel_explore
+                    </span>
+                    <p className="font-headline font-bold text-sm text-ink-primary">
+                      No resources published yet
+                    </p>
+                    <p className="font-body text-xs text-on-surface-variant max-w-xs mx-auto mt-1">
+                      The autonomous AI pipeline will crawl and index verified resources in Phase 5.
+                    </p>
+                  </div>
+                )}
+              </div>
+            </section>
+          </div>
 
-            <div className="mt-4 space-y-2">
-              {topic.prerequisites && topic.prerequisites.length > 0 ? (
-                topic.prerequisites.map((prereq) => (
-                  <Link
-                    key={prereq}
-                    href={`/roadmaps/${slug}/${prereq}`}
-                    className="flex items-center justify-between rounded-xl border border-border/70 bg-muted/30 p-3 text-xs font-semibold text-foreground transition-all hover:bg-muted hover:text-primary"
-                  >
-                    <span>{prereq}</span>
-                    <ChevronRight className="h-3.5 w-3.5" />
-                  </Link>
-                ))
-              ) : (
-                <p className="text-xs text-muted-foreground italic">
-                  None. This is an introductory starting topic.
-                </p>
-              )}
+          {/* Sidebar Column: Prerequisites & Nav */}
+          <div className="space-y-6">
+            <div className="bg-surface-container-lowest border border-ink-primary rounded-xl p-5 shadow-editorial">
+              <h3 className="font-label-mono text-xs text-ink-primary uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                <span className="material-symbols-outlined text-[16px]">account_tree</span>
+                Prerequisites
+              </h3>
+
+              <div className="space-y-2">
+                {topic.prerequisites && topic.prerequisites.length > 0 ? (
+                  topic.prerequisites.map((prereq) => (
+                    <Link
+                      key={prereq}
+                      href={`/roadmaps/${slug}/${prereq}`}
+                      className="flex items-center justify-between bg-paper-bg border border-ink-primary px-3 py-2 rounded text-xs font-headline font-bold text-ink-primary hover:bg-highlight-yellow transition-all"
+                    >
+                      <span>{prereq}</span>
+                      <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
+                    </Link>
+                  ))
+                ) : (
+                  <p className="font-body text-xs text-on-surface-variant italic">
+                    None. This is an introductory starting module.
+                  </p>
+                )}
+              </div>
             </div>
+
+            <Link
+              href={`/roadmaps/${slug}`}
+              className="flex items-center justify-center gap-2 font-label-mono text-xs bg-paper-bg border border-ink-primary p-3 rounded text-ink-primary hover:bg-highlight-yellow transition-colors shadow-editorial-sm"
+            >
+              <span className="material-symbols-outlined text-[16px]">arrow_back</span>
+              <span>Back to {roadmap?.title || "Roadmap"} Outline</span>
+            </Link>
           </div>
         </div>
       </div>

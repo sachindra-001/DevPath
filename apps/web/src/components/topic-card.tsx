@@ -1,9 +1,5 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
 import { TopicSummary } from "@/types/api";
-import { Clock, ChevronRight, CheckCircle, Circle, Link as LinkIcon, Sparkles } from "lucide-react";
 
 interface TopicCardProps {
   topic: TopicSummary;
@@ -12,87 +8,73 @@ interface TopicCardProps {
 }
 
 export function TopicCard({ topic, roadmapSlug, index }: TopicCardProps) {
-  const [isHovered, setIsHovered] = useState(false);
-
-  const getDifficultyColor = (diff: string) => {
-    switch (diff) {
-      case "beginner":
-        return "text-emerald-700 bg-emerald-50 border-emerald-200";
-      case "intermediate":
-        return "text-indigo-700 bg-indigo-50 border-indigo-200";
-      case "advanced":
-        return "text-purple-700 bg-purple-50 border-purple-200";
-      default:
-        return "text-slate-700 bg-slate-50 border-slate-200";
-    }
-  };
+  const isFirst = index === 0;
 
   return (
     <div
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className="group relative flex flex-col rounded-xl border border-border/70 bg-white p-4.5 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md"
+      className={`group flex flex-col md:flex-row items-start md:items-center gap-4 border border-ink-primary p-4.5 rounded-lg relative transition-all duration-200 hover:shadow-editorial hover:-translate-y-0.5 ${
+        isFirst
+          ? "bg-surface-container-lowest border-2 shadow-editorial"
+          : "bg-paper-bg"
+      }`}
     >
-      <div className="flex items-start justify-between gap-3">
-        {/* Left Indicator & Topic Title */}
-        <div className="flex items-start gap-3">
-          <div className="mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600 font-semibold text-xs">
-            {index + 1}
-          </div>
-          <div>
-            <div className="flex flex-wrap items-center gap-2">
-              <Link
-                href={`/roadmaps/${roadmapSlug}/${topic.slug}`}
-                className="font-bold text-foreground transition-colors hover:text-primary"
-              >
-                {topic.title}
-              </Link>
+      {/* Icon Indicator */}
+      <div
+        className={`flex items-center justify-center w-8 h-8 rounded-full border border-ink-primary text-ink-primary flex-shrink-0 font-label-mono text-xs ${
+          isFirst ? "bg-highlight-yellow animate-pulse" : "bg-surface-container"
+        }`}
+      >
+        {isFirst ? (
+          <span className="material-symbols-outlined text-[18px]">play_arrow</span>
+        ) : (
+          <span>{index + 1}</span>
+        )}
+      </div>
 
-              {/* Difficulty badge */}
-              <span
-                className={`rounded-md border px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wider capitalize ${getDifficultyColor(
-                  topic.difficulty
-                )}`}
-              >
-                {topic.difficulty}
-              </span>
-            </div>
-
-            {/* Prerequisites tags */}
-            {topic.depends_on && topic.depends_on.length > 0 && (
-              <div className="mt-2 flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground">
-                <span className="flex items-center gap-1 font-medium text-slate-500">
-                  <LinkIcon className="h-3 w-3" /> Requires:
-                </span>
-                {topic.depends_on.map((dep) => (
-                  <Link
-                    key={dep}
-                    href={`/roadmaps/${roadmapSlug}/${dep}`}
-                    className="inline-flex items-center rounded-md bg-muted px-2 py-0.5 font-mono text-[11px] text-foreground hover:bg-primary/10 hover:text-primary transition-colors"
-                  >
-                    {dep}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Right Info: Est Hours & Action */}
-        <div className="flex flex-col items-end gap-2 flex-shrink-0">
-          <span className="flex items-center gap-1 text-xs font-medium text-muted-foreground">
-            <Clock className="h-3.5 w-3.5 text-teal-600" />
-            {topic.estimated_hours || 4} hrs
-          </span>
-
+      {/* Main Content */}
+      <div className="flex-1">
+        <div className="flex flex-wrap items-center gap-2">
           <Link
             href={`/roadmaps/${roadmapSlug}/${topic.slug}`}
-            className="flex items-center gap-1 text-xs font-semibold text-primary transition-all group-hover:translate-x-0.5"
+            className="font-headline font-bold text-base text-ink-primary hover:text-secondary transition-colors"
           >
-            <span>Learn</span>
-            <ChevronRight className="h-3.5 w-3.5" />
+            {topic.title}
           </Link>
+          <span className="font-label-mono text-[10px] bg-accent-lavender border border-ink-primary px-2 py-0.5 rounded capitalize">
+            {topic.difficulty}
+          </span>
         </div>
+
+        {/* Prerequisites */}
+        {topic.depends_on && topic.depends_on.length > 0 && (
+          <div className="mt-1.5 flex flex-wrap items-center gap-1.5 font-label-mono text-[11px] text-on-surface-variant">
+            <span>Requires:</span>
+            {topic.depends_on.map((dep) => (
+              <Link
+                key={dep}
+                href={`/roadmaps/${roadmapSlug}/${dep}`}
+                className="bg-surface-container border border-ink-primary/40 px-1.5 py-0.2 rounded hover:bg-highlight-yellow text-ink-primary transition-colors"
+              >
+                {dep}
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Right Actions */}
+      <div className="flex items-center gap-3 w-full md:w-auto justify-between md:justify-end pt-2 md:pt-0 border-t md:border-t-0 border-ink-primary/20">
+        <span className="font-label-mono text-xs text-on-surface-variant">
+          ~{topic.estimated_hours || 4}h
+        </span>
+
+        <Link
+          href={`/roadmaps/${roadmapSlug}/${topic.slug}`}
+          className="font-label-mono text-xs bg-ink-primary text-white px-3.5 py-1.5 rounded border border-ink-primary hover:bg-on-surface-variant transition-colors flex items-center gap-1 shadow-editorial-sm"
+        >
+          <span>Learn</span>
+          <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
+        </Link>
       </div>
     </div>
   );

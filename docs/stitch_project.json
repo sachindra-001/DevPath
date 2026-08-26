@@ -1,0 +1,365 @@
+{
+  "createTime": "2026-08-25T18:25:31.917485Z",
+  "designTheme": {
+    "bodyFont": "GEIST",
+    "bodyFontFamily": "Geist",
+    "colorMode": "LIGHT",
+    "colorVariant": "FIDELITY",
+    "customColor": "#1a1f2c",
+    "designMd": "---\nname: Technical Editorial\ncolors:\n  surface: '#fbf9f4'\n  surface-dim: '#dbdad5'\n  surface-bright: '#fbf9f4'\n  surface-container-lowest: '#ffffff'\n  surface-container-low: '#f5f3ee'\n  surface-container: '#f0eee9'\n  surface-container-high: '#eae8e3'\n  surface-container-highest: '#e4e2dd'\n  on-surface: '#1b1c19'\n  on-surface-variant: '#45464c'\n  inverse-surface: '#30312e'\n  inverse-on-surface: '#f2f1ec'\n  outline: '#76777c'\n  outline-variant: '#c6c6cc'\n  surface-tint: '#595e6d'\n  primary: '#030612'\n  on-primary: '#ffffff'\n  primary-container: '#1a1f2c'\n  on-primary-container: '#828697'\n  inverse-primary: '#c2c6d8'\n  secondary: '#3b608f'\n  on-secondary: '#ffffff'\n  secondary-container: '#a5c9fe'\n  on-secondary-container: '#2e5483'\n  tertiary: '#0b0500'\n  on-tertiary: '#ffffff'\n  tertiary-container: '#281d0b'\n  on-tertiary-container: '#96846b'\n  error: '#ba1a1a'\n  on-error: '#ffffff'\n  error-container: '#ffdad6'\n  on-error-container: '#93000a'\n  primary-fixed: '#dee2f4'\n  primary-fixed-dim: '#c2c6d8'\n  on-primary-fixed: '#161b28'\n  on-primary-fixed-variant: '#424655'\n  secondary-fixed: '#d4e3ff'\n  secondary-fixed-dim: '#a5c9fe'\n  on-secondary-fixed: '#001c39'\n  on-secondary-fixed-variant: '#204876'\n  tertiary-fixed: '#f5dfc3'\n  tertiary-fixed-dim: '#d8c4a8'\n  on-tertiary-fixed: '#241a08'\n  on-tertiary-fixed-variant: '#534530'\n  background: '#fbf9f4'\n  on-background: '#1b1c19'\n  surface-variant: '#e4e2dd'\n  ink-primary: '#1A1F2C'\n  paper-bg: '#F9F7F2'\n  highlight-yellow: '#FDF2B3'\n  success-green: '#D4EDDA'\n  accent-lavender: '#E9E4FF'\n  border-stroke: '#1A1F2C'\ntypography:\n  headline-xl:\n    fontFamily: Space Grotesk\n    fontSize: 48px\n    fontWeight: '700'\n    lineHeight: 56px\n    letterSpacing: -0.02em\n  headline-lg:\n    fontFamily: Space Grotesk\n    fontSize: 32px\n    fontWeight: '600'\n    lineHeight: 40px\n    letterSpacing: -0.01em\n  headline-lg-mobile:\n    fontFamily: Space Grotesk\n    fontSize: 28px\n    fontWeight: '600'\n    lineHeight: 34px\n  headline-md:\n    fontFamily: Space Grotesk\n    fontSize: 24px\n    fontWeight: '600'\n    lineHeight: 32px\n  body-lg:\n    fontFamily: Geist\n    fontSize: 18px\n    fontWeight: '400'\n    lineHeight: 28px\n  body-md:\n    fontFamily: Geist\n    fontSize: 16px\n    fontWeight: '400'\n    lineHeight: 24px\n  body-sm:\n    fontFamily: Geist\n    fontSize: 14px\n    fontWeight: '400'\n    lineHeight: 20px\n  label-mono:\n    fontFamily: Geist\n    fontSize: 12px\n    fontWeight: '500'\n    lineHeight: 16px\n    letterSpacing: 0.05em\nrounded:\n  sm: 0.25rem\n  DEFAULT: 0.5rem\n  md: 0.75rem\n  lg: 1rem\n  xl: 1.5rem\n  full: 9999px\nspacing:\n  unit: 4px\n  gutter: 24px\n  margin-mobile: 16px\n  margin-desktop: 48px\n  container-max: 1280px\n---\n\n## Brand & Style\nThe design system is built on the metaphor of a **\"Living Technical Notebook.\"** It bridges the gap between structured documentation and high-performance developer tools. The aesthetic rejects the polished \"SaaS\" look in favor of an editorial, tactile experience that prioritizes information density and clarity.\n\nThe personality is **intelligent, handcrafted, and calm**. It evokes the feeling of a well-organized physical notebook where complex roadmaps are distilled into manageable paths. The style leverages **Modern Minimalism with an Editorial twist**, utilizing thin architectural outlines, a paper-like foundation, and a disciplined color system to guide the user's cognitive flow without unnecessary visual noise.\n\n## Colors\nThe palette is centered on high-contrast legibility and \"ink-on-paper\" warmth. \n- **Paper Foundation:** The background (#F9F7F2) provides a warm, non-glare surface that reduces eye strain during long learning sessions.\n- **Ink Primary:** Use #1A1F2C for all structural borders, text, and primary actions. It acts as the \"black ink\" that defines the layout.\n- **Functional Accents:** `Soft Pastel Blue` is used for primary interactive highlights. `Muted Yellow` serves as a highlighter for \"in-progress\" or \"featured\" roadmap nodes. \n- **Supporting Tones:** `Subtle Green` is reserved for completion states, while `Lavender` identifies specialized technical branches or deep-dive topics.\n\n## Typography\nThe typography system uses **Space Grotesk** for headings to provide a technical, geometric personality. The tight tracking and bold weights create a clear hierarchy for roadmap stages. \n\n**Geist** is used for body and labels to ensure maximum legibility at small sizes, typical of technical documentation. Use `label-mono` for metadata like \"Est. Time,\" \"Level,\" or \"Module ID\" to reinforce the developer-tool aesthetic. All body text should maintain a generous line height to ensure the \"paper\" background can breathe through the text blocks.\n\n## Layout & Spacing\nThe layout follows a **structured grid system** inspired by blueprint paper. \n- **Grid:** Use a 12-column grid for desktop with 24px gutters. Elements should align strictly to the 4px baseline grid to maintain the \"technical drawing\" feel.\n- **Rhythm:** Spacing should be purposeful and ample. Use large top margins for new roadmap sections to indicate a change in topic.\n- **Mobile:** Transition to a single-column layout with 16px margins. Roadmap paths should switch from a horizontal flow to a vertical timeline view for better thumb-scrolling.\n\n## Elevation & Depth\nThis design system **eschews traditional drop shadows**. Depth is created through:\n- **Tonal Layering:** The primary background is the warm ivory. Interactive or nested sections (like a code snippet or a sub-task) use a white (#FFFFFF) background to \"lift\" them closer to the user.\n- **Stark Outlines:** Every card and button is defined by a 1px solid border (#1A1F2C).\n- **Physical Offsets:** Instead of shadows, use a \"hard shadow\" approach for active states—a solid 2px-4px offset border in the primary ink color to simulate a physical button being pressed into the page.\n\n## Shapes\nThe shape language is **balanced between geometric and approachable**. \n- A base radius of **8px (0.5rem)** is used for small components like inputs and chips.\n- Larger containers like cards or roadmap nodes use **12px (0.75rem)** to feel more substantial. \n- Avoid fully pill-shaped elements; maintain a structured, rectangular foundation to keep the documentation aesthetic intact.\n\n## Components\n- **Buttons:** Primary buttons feature a solid ink background with ivory text. Secondary buttons use a 1px border with no fill. On hover, apply the `Soft Pastel Blue` fill.\n- **Roadmap Nodes:** These are the core atoms. Use a 1px border. Incomplete nodes have an ivory background; active nodes use the `Muted Yellow` fill; completed nodes use the `Subtle Green` fill with a strike-through on the text.\n- **Input Fields:** Use a 1px ink border. For focus states, do not use a glow; instead, increase the border weight to 2px and apply a very light blue background tint.\n- **Chips/Tags:** Use the `label-mono` type style. Tags should have a 1px border and be color-coded based on category (e.g., Lavender for \"Theory\", Blue for \"Project\").\n- **Cards:** White background, 1px ink border, and 12px corners. Use a 4px \"hard offset\" (solid border-color) on hover to create a tactile interaction.\n- **Progress Connectors:** Use solid 2px ink lines to connect roadmap nodes. Use dashed lines for \"optional\" or \"recommended\" side-paths.",
+    "font": "SPACE_GROTESK",
+    "headlineFont": "SPACE_GROTESK",
+    "headlineFontFamily": "Space Grotesk",
+    "labelFont": "GEIST",
+    "labelFontFamily": "Geist",
+    "namedColors": {
+      "accent-lavender": "#E9E4FF",
+      "background": "#fbf9f4",
+      "border-stroke": "#1A1F2C",
+      "error": "#ba1a1a",
+      "error_container": "#ffdad6",
+      "highlight-yellow": "#FDF2B3",
+      "ink-primary": "#1A1F2C",
+      "inverse_on_surface": "#f2f1ec",
+      "inverse_primary": "#c2c6d8",
+      "inverse_surface": "#30312e",
+      "on_background": "#1b1c19",
+      "on_error": "#ffffff",
+      "on_error_container": "#93000a",
+      "on_primary": "#ffffff",
+      "on_primary_container": "#828697",
+      "on_primary_fixed": "#161b28",
+      "on_primary_fixed_variant": "#424655",
+      "on_secondary": "#ffffff",
+      "on_secondary_container": "#2e5483",
+      "on_secondary_fixed": "#001c39",
+      "on_secondary_fixed_variant": "#204876",
+      "on_surface": "#1b1c19",
+      "on_surface_variant": "#45464c",
+      "on_tertiary": "#ffffff",
+      "on_tertiary_container": "#96846b",
+      "on_tertiary_fixed": "#241a08",
+      "on_tertiary_fixed_variant": "#534530",
+      "outline": "#76777c",
+      "outline_variant": "#c6c6cc",
+      "paper-bg": "#F9F7F2",
+      "primary": "#030612",
+      "primary_container": "#1a1f2c",
+      "primary_fixed": "#dee2f4",
+      "primary_fixed_dim": "#c2c6d8",
+      "secondary": "#3b608f",
+      "secondary_container": "#a5c9fe",
+      "secondary_fixed": "#d4e3ff",
+      "secondary_fixed_dim": "#a5c9fe",
+      "success-green": "#D4EDDA",
+      "surface": "#fbf9f4",
+      "surface_bright": "#fbf9f4",
+      "surface_container": "#f0eee9",
+      "surface_container_high": "#eae8e3",
+      "surface_container_highest": "#e4e2dd",
+      "surface_container_low": "#f5f3ee",
+      "surface_container_lowest": "#ffffff",
+      "surface_dim": "#dbdad5",
+      "surface_tint": "#595e6d",
+      "surface_variant": "#e4e2dd",
+      "tertiary": "#0b0500",
+      "tertiary_container": "#281d0b",
+      "tertiary_fixed": "#f5dfc3",
+      "tertiary_fixed_dim": "#d8c4a8"
+    },
+    "overrideNeutralColor": "#f9f7f2",
+    "overridePrimaryColor": "#1a1f2c",
+    "overrideSecondaryColor": "#a5c9ff",
+    "roundness": "ROUND_EIGHT",
+    "spacing": {
+      "container-max": "1280px",
+      "gutter": "24px",
+      "margin-desktop": "48px",
+      "margin-mobile": "16px",
+      "unit": "4px"
+    },
+    "spacingScale": 2,
+    "typography": {
+      "body-lg": {
+        "fontFamily": "Geist",
+        "fontSize": "18px",
+        "fontWeight": "400",
+        "lineHeight": "28px"
+      },
+      "body-md": {
+        "fontFamily": "Geist",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "24px"
+      },
+      "body-sm": {
+        "fontFamily": "Geist",
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "lineHeight": "20px"
+      },
+      "headline-lg": {
+        "fontFamily": "Space Grotesk",
+        "fontSize": "32px",
+        "fontWeight": "600",
+        "letterSpacing": "-0.01em",
+        "lineHeight": "40px"
+      },
+      "headline-lg-mobile": {
+        "fontFamily": "Space Grotesk",
+        "fontSize": "28px",
+        "fontWeight": "600",
+        "lineHeight": "34px"
+      },
+      "headline-md": {
+        "fontFamily": "Space Grotesk",
+        "fontSize": "24px",
+        "fontWeight": "600",
+        "lineHeight": "32px"
+      },
+      "headline-xl": {
+        "fontFamily": "Space Grotesk",
+        "fontSize": "48px",
+        "fontWeight": "700",
+        "letterSpacing": "-0.02em",
+        "lineHeight": "56px"
+      },
+      "label-mono": {
+        "fontFamily": "Geist",
+        "fontSize": "12px",
+        "fontWeight": "500",
+        "letterSpacing": "0.05em",
+        "lineHeight": "16px"
+      }
+    }
+  },
+  "deviceType": "DESKTOP",
+  "metadata": {
+    "userRole": "OWNER"
+  },
+  "name": "projects/1438700305025467898",
+  "origin": "STITCH",
+  "projectType": "TEXT_TO_UI_PRO",
+  "screenInstances": [
+    {
+      "height": 1483,
+      "id": "0070ece2e5164f91b0d1b0e5dc855fcf",
+      "sourceScreen": "projects/1438700305025467898/screens/0070ece2e5164f91b0d1b0e5dc855fcf",
+      "width": 1280,
+      "x": 4032,
+      "y": 11504
+    },
+    {
+      "height": 2645,
+      "hidden": true,
+      "id": "0695842a2a2d4fe58764b541ed74a2a9",
+      "sourceScreen": "projects/1438700305025467898/screens/0695842a2a2d4fe58764b541ed74a2a9",
+      "width": 1280,
+      "x": 3712,
+      "y": 8602
+    },
+    {
+      "height": 1243,
+      "hidden": true,
+      "id": "0f88578195774bd3a2d818264cae479b",
+      "sourceScreen": "projects/1438700305025467898/screens/0f88578195774bd3a2d818264cae479b",
+      "width": 1280,
+      "x": 5056,
+      "y": 8602
+    },
+    {
+      "height": 963,
+      "id": "19c181bcb1184d7eb262b20c09309abf",
+      "sourceScreen": "projects/1438700305025467898/screens/19c181bcb1184d7eb262b20c09309abf",
+      "width": 1280,
+      "x": 1344,
+      "y": 11504
+    },
+    {
+      "height": 1445,
+      "id": "1d7539e240cd4c49be2a86e102c13b08",
+      "sourceScreen": "projects/1438700305025467898/screens/1d7539e240cd4c49be2a86e102c13b08",
+      "width": 1280,
+      "x": 8320
+    },
+    {
+      "height": 940,
+      "id": "23f639591faa47cdb8bb4099ec8fcad8",
+      "sourceScreen": "projects/1438700305025467898/screens/23f639591faa47cdb8bb4099ec8fcad8",
+      "width": 1280,
+      "y": 2901
+    },
+    {
+      "height": 1002,
+      "id": "5379e12796944d7d9cb9fbb632d9388a",
+      "sourceScreen": "projects/1438700305025467898/screens/5379e12796944d7d9cb9fbb632d9388a",
+      "width": 1280,
+      "y": 7345
+    },
+    {
+      "height": 1419,
+      "id": "65494c55dc374a7385e08d36974b0bf9",
+      "sourceScreen": "projects/1438700305025467898/screens/65494c55dc374a7385e08d36974b0bf9",
+      "width": 1280,
+      "x": 2688,
+      "y": 11504
+    },
+    {
+      "height": 1159,
+      "id": "6c22f593fa504c049ef0f3a8e065400c",
+      "sourceScreen": "projects/1438700305025467898/screens/6c22f593fa504c049ef0f3a8e065400c",
+      "width": 1280,
+      "y": 11504
+    },
+    {
+      "height": 1810,
+      "id": "85d94abfbf5c45dca9d255d7a98e52ef",
+      "sourceScreen": "projects/1438700305025467898/screens/85d94abfbf5c45dca9d255d7a98e52ef",
+      "width": 1280,
+      "x": 2944
+    },
+    {
+      "height": 1290,
+      "id": "87308ad598d047339bd786ea9c4d7ee7",
+      "sourceScreen": "projects/1438700305025467898/screens/87308ad598d047339bd786ea9c4d7ee7",
+      "width": 1280,
+      "x": 8064,
+      "y": 11504
+    },
+    {
+      "height": 1201,
+      "id": "8d117f11af4849ba97d3e715f2824c74",
+      "sourceScreen": "projects/1438700305025467898/screens/8d117f11af4849ba97d3e715f2824c74",
+      "width": 1280,
+      "x": 1600
+    },
+    {
+      "height": 1200,
+      "hidden": true,
+      "id": "94ca7e606e8a4ba59c8f97c06033d2a5",
+      "sourceScreen": "projects/1438700305025467898/screens/94ca7e606e8a4ba59c8f97c06033d2a5",
+      "width": 1280,
+      "x": 2368,
+      "y": 8602
+    },
+    {
+      "height": 540,
+      "id": "assets_a93f5cfd79ba4168b555a8d7b0a9ab05",
+      "sourceAsset": "assets/a93f5cfd79ba4168b555a8d7b0a9ab05",
+      "type": "DESIGN_SYSTEM_INSTANCE",
+      "width": 960,
+      "x": 576
+    },
+    {
+      "height": 540,
+      "hidden": true,
+      "id": "assets_c3d74684d6744ec39d018a73dd72ecd3",
+      "sourceAsset": "assets/c3d74684d6744ec39d018a73dd72ecd3",
+      "type": "DESIGN_SYSTEM_INSTANCE",
+      "width": 960,
+      "y": 8602
+    },
+    {
+      "height": 1297,
+      "id": "b4d54b6b47da4afc9c0620ee7493166e",
+      "sourceScreen": "projects/1438700305025467898/screens/b4d54b6b47da4afc9c0620ee7493166e",
+      "width": 1280,
+      "x": 9664
+    },
+    {
+      "height": 1332,
+      "id": "b8a9c38404fc46fa897abc49982ccb36",
+      "sourceScreen": "projects/1438700305025467898/screens/b8a9c38404fc46fa897abc49982ccb36",
+      "width": 1280,
+      "x": 5376,
+      "y": 11504
+    },
+    {
+      "height": 1809,
+      "hidden": true,
+      "id": "bb305a429a6f49e7b451f2c28f202e53",
+      "sourceScreen": "projects/1438700305025467898/screens/bb305a429a6f49e7b451f2c28f202e53",
+      "width": 1280,
+      "x": 1024,
+      "y": 8602
+    },
+    {
+      "height": 1201,
+      "id": "be0f3c259e5049e8893ec56873e82eb9",
+      "sourceScreen": "projects/1438700305025467898/screens/be0f3c259e5049e8893ec56873e82eb9",
+      "width": 1280,
+      "x": 5632
+    },
+    {
+      "height": 2646,
+      "id": "be4a1565da03416aa6da708af10a67a1",
+      "sourceScreen": "projects/1438700305025467898/screens/be4a1565da03416aa6da708af10a67a1",
+      "width": 1280,
+      "x": 4288
+    },
+    {
+      "height": 1243,
+      "id": "cfdded434c734b80a6245999d3f9a601",
+      "sourceScreen": "projects/1438700305025467898/screens/cfdded434c734b80a6245999d3f9a601",
+      "width": 1280,
+      "x": 6976
+    },
+    {
+      "height": 1038,
+      "id": "d0044c6bdc804226b4b5504e402e9794",
+      "sourceScreen": "projects/1438700305025467898/screens/d0044c6bdc804226b4b5504e402e9794",
+      "width": 1280,
+      "x": 1344,
+      "y": 2901
+    },
+    {
+      "height": 1206,
+      "id": "d3353bcfec994f7d8b2fbb0cf89a9b88",
+      "sourceScreen": "projects/1438700305025467898/screens/d3353bcfec994f7d8b2fbb0cf89a9b88",
+      "width": 1280,
+      "y": 4194
+    },
+    {
+      "height": 984,
+      "id": "d5ea6a95344849a68958a7de758ee921",
+      "sourceScreen": "projects/1438700305025467898/screens/d5ea6a95344849a68958a7de758ee921",
+      "width": 1280,
+      "y": 8602
+    },
+    {
+      "height": 1429,
+      "id": "dafc4ce1b5d64a7795a14efe0774856e",
+      "sourceScreen": "projects/1438700305025467898/screens/dafc4ce1b5d64a7795a14efe0774856e",
+      "width": 1280,
+      "y": 5660
+    },
+    {
+      "height": 512,
+      "id": "e4c04460bb47410d873e4c255ad13c7f",
+      "sourceScreen": "projects/1438700305025467898/screens/e4c04460bb47410d873e4c255ad13c7f",
+      "width": 512
+    },
+    {
+      "height": 1559,
+      "id": "e6d752d2ac2d49eaa9bf0647134f9aa0",
+      "sourceScreen": "projects/1438700305025467898/screens/e6d752d2ac2d49eaa9bf0647134f9aa0",
+      "width": 1280,
+      "x": 11008
+    },
+    {
+      "height": 1273,
+      "id": "f19a6dd583e441059ee139eac2f01c50",
+      "sourceScreen": "projects/1438700305025467898/screens/f19a6dd583e441059ee139eac2f01c50",
+      "width": 1280,
+      "x": 6720,
+      "y": 11504
+    }
+  ],
+  "thumbnailScreenshot": {
+    "downloadUrl": "https://lh3.googleusercontent.com/aida/AEtjO1UPEVt-3y0SO5I3dj995JcIGTKn7T3lPpa_YCfCUvj8PBWRSfPzYgIjMDvx9RqezaS4di7uGnYMoh8bXIkSFAf-041X1yh2PUk54dALGtuBU1NMCNBxEx07frWWXZtp-O3tVLmjQcsUnoxuvXO8Xx2IUrBP1LmIyRbmUhp6SYjJbN6HHx6-LjG7YUrP_H403893sr2eRH0MPryJYCNMD9VGCMzpRnLaVmh6dE9QfIhr4QHOMSURacKxltU",
+    "name": "projects/1438700305025467898/screens/e4c04460bb47410d873e4c255ad13c7f/fileEntries/screenshot"
+  },
+  "title": "DevPath: AI Learning Roadmap Platform",
+  "updateTime": "2026-08-26T17:40:20.768689Z",
+  "visibility": "PRIVATE"
+}

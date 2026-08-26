@@ -1,62 +1,74 @@
 "use client";
 
 import Link from "next/link";
-import { Compass, Sparkles, BookOpen, Layers, LogIn } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 export function Navbar() {
+  const pathname = usePathname();
+
+  const isRoadmapsActive = pathname.startsWith("/roadmaps");
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/70 bg-background/80 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+    <header className="sticky top-4 z-50 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-container-max mx-auto bg-paper-bg border border-ink-primary rounded-xl h-16 flex items-center justify-between px-6 shadow-editorial transition-all">
         {/* Brand */}
-        <Link href="/" className="flex items-center gap-2.5 transition-transform hover:scale-[1.02]">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-brand shadow-sm shadow-indigo-500/20 text-white">
-            <Compass className="h-5 w-5 animate-pulse" />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-lg font-bold tracking-tight text-foreground">
-              DevPath <span className="text-xs font-semibold text-primary">CPGS</span>
-            </span>
-            <span className="text-[10px] font-medium tracking-wide text-muted-foreground uppercase">
-              AI-Curated Roadmaps
-            </span>
-          </div>
+        <Link href="/" className="flex items-center gap-3 group">
+          <img
+            alt="DevPath Logo"
+            className="h-8 w-auto object-contain transition-transform group-hover:scale-105"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZnA8cueS_29iU4ekKGAPOfO3fbsexi9l6Rt61Vo907MCsL4THl7CO82a6bKh7PweIm6owYFyAafXwCKC3UJ3qUqBc5Qfqfp2_nVoTge8E-MofMRLbMSG0CUp_7KtNxp8kF6yxfVwb1YaFHuuL2E5fwfD7fJsfPN8gD2sjz9am88KVbnc_bAHbOUBlPhMWbmuS1DQ8ewYWF1VpPFwnZcPVR6OBSKAVplEGaAs-S4WjsFgocnRUFNlc"
+          />
+          <span className="font-headline font-bold text-xl text-ink-primary hidden sm:block">
+            DevPath
+          </span>
         </Link>
 
         {/* Navigation Links */}
-        <nav className="flex items-center gap-1 sm:gap-2">
+        <nav className="hidden md:flex items-center gap-8">
           <Link
             href="/roadmaps"
-            className="flex items-center gap-2 rounded-lg px-3.5 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-muted hover:text-foreground"
+            className={`font-label-mono transition-colors tracking-wider ${
+              isRoadmapsActive
+                ? "text-ink-primary font-bold border-b-2 border-ink-primary pb-0.5"
+                : "text-on-surface-variant hover:text-ink-primary"
+            }`}
           >
-            <Layers className="h-4 w-4 text-primary" />
-            <span>Catalog</span>
+            Roadmaps
           </Link>
-
           <Link
             href="/roadmaps/frontend-developer"
-            className="hidden sm:flex items-center gap-2 rounded-lg px-3.5 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-muted hover:text-foreground"
+            className="font-label-mono text-on-surface-variant hover:text-ink-primary transition-colors tracking-wider"
           >
-            <BookOpen className="h-4 w-4 text-teal-600" />
-            <span>Frontend</span>
+            Frontend
           </Link>
-
           <Link
             href="/roadmaps/data-analyst"
-            className="hidden md:flex items-center gap-2 rounded-lg px-3.5 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-muted hover:text-foreground"
+            className="font-label-mono text-on-surface-variant hover:text-ink-primary transition-colors tracking-wider"
           >
-            <Sparkles className="h-4 w-4 text-indigo-600" />
-            <span>Data Analyst</span>
+            Data Analyst
           </Link>
         </nav>
 
-        {/* Action button */}
-        <div className="flex items-center gap-3">
+        {/* Search & Actions */}
+        <div className="flex items-center gap-4">
           <Link
             href="/roadmaps"
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-brand px-4 py-2 text-sm font-semibold text-white shadow-md shadow-indigo-500/25 transition-all hover:opacity-95 hover:shadow-lg active:scale-[0.98]"
+            className="hidden lg:flex items-center gap-2 bg-surface-container border border-ink-primary px-3 py-1.5 rounded-lg text-on-surface-variant hover:bg-highlight-yellow transition-colors"
           >
-            <span>Explore Roadmaps</span>
+            <span className="material-symbols-outlined text-[18px]">search</span>
+            <span className="font-label-mono text-[11px]">Cmd+K</span>
           </Link>
+
+          <Link
+            href="/roadmaps"
+            className="font-label-mono border border-ink-primary px-4 py-1.5 rounded bg-surface-container-lowest hover:bg-highlight-yellow transition-all shadow-editorial-sm hover:-translate-y-0.5"
+          >
+            CATALOG
+          </Link>
+
+          <div className="w-8 h-8 rounded-full bg-ink-primary flex items-center justify-center border border-ink-primary text-white">
+            <span className="material-symbols-outlined text-[18px]">person</span>
+          </div>
         </div>
       </div>
     </header>

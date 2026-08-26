@@ -1,16 +1,6 @@
 import Link from "next/link";
 import { fetchRoadmaps } from "@/lib/api";
 import { RoadmapCard } from "@/components/roadmap-card";
-import {
-  Compass,
-  Sparkles,
-  ShieldCheck,
-  Zap,
-  ArrowRight,
-  GitBranch,
-  Target,
-  CheckCircle2,
-} from "lucide-react";
 
 export const revalidate = 60;
 
@@ -18,135 +8,152 @@ export default async function HomePage() {
   const roadmaps = await fetchRoadmaps();
 
   return (
-    <div className="flex flex-col gap-16 pb-20 sm:gap-24">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden border-b border-border/70 bg-gradient-to-b from-white via-[#FAF8F5] to-[#FAF8F5] py-20 lg:py-28">
-        {/* Subtle grid backdrop */}
-        <div className="absolute inset-0 bg-[radial-gradient(#4f46e5_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.04]" />
+    <div className="flex flex-col w-full relative">
+      {/* Decorative Grid Background */}
+      <div className="absolute inset-0 pointer-events-none opacity-20 bg-notebook-grid" />
 
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 rounded-full border border-indigo-500/20 bg-indigo-50/70 px-4 py-1.5 text-xs font-semibold text-indigo-800 shadow-sm">
-            <Sparkles className="h-4 w-4 text-indigo-600" />
-            <span>AI Resource Discovery · Human Quality Curation</span>
+      {/* Hero Section */}
+      <section className="w-full max-w-container-max mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-24 relative z-10 flex flex-col lg:flex-row items-center gap-16 border-b border-ink-primary">
+        {/* Hero Text */}
+        <div className="flex-1 flex flex-col items-start text-left">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-ink-primary bg-highlight-yellow mb-8 shadow-editorial-sm">
+            <span className="w-2 h-2 rounded-full bg-ink-primary animate-pulse" />
+            <span className="font-label-mono text-ink-primary text-xs uppercase tracking-wider">
+              v2.0 Beta Live
+            </span>
           </div>
 
-          {/* Heading */}
-          <h1 className="mt-6 text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-            Learn Tech with <span className="text-gradient">Clarity</span>. <br />
-            No Noise. Only Proven Paths.
+          <h1 className="font-headline text-5xl sm:text-6xl font-extrabold text-ink-primary mb-6 leading-tight">
+            Build your <br />
+            <span className="relative inline-block">
+              path.
+              <span className="absolute bottom-1 left-0 w-full h-[10px] bg-secondary-fixed -z-10 transform -rotate-1" />
+            </span>
           </h1>
 
-          {/* Subtitle */}
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed sm:text-xl">
-            Structured step-by-step career roadmaps powered by an AI discovery engine. Every resource
-            evaluated, scored, and verified before publish.
+          <p className="font-body text-lg text-on-surface-variant max-w-xl mb-10 leading-relaxed border-l-2 border-ink-primary pl-6">
+            Structured developer roadmaps with resources discovered, evaluated, and curated by DevPath AI.
+            Skip the noise, follow the blueprint.
           </p>
 
-          {/* Actions */}
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
             <Link
               href="/roadmaps"
-              className="inline-flex items-center gap-2 rounded-xl bg-gradient-brand px-6 py-3.5 text-base font-semibold text-white shadow-lg shadow-indigo-500/25 transition-all hover:scale-[1.02] hover:shadow-xl active:scale-[0.98]"
+              className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-ink-primary text-white font-label-mono text-xs uppercase tracking-wider rounded border border-ink-primary overflow-hidden transition-transform hover:-translate-y-1 shadow-editorial"
             >
-              <span>Explore Roadmaps</span>
-              <ArrowRight className="h-5 w-5" />
+              <span className="relative z-10">Explore Roadmaps</span>
+              <span className="material-symbols-outlined text-[18px] relative z-10 group-hover:translate-x-1 transition-transform">
+                arrow_forward
+              </span>
             </Link>
 
             <Link
               href="/roadmaps/frontend-developer"
-              className="inline-flex items-center gap-2 rounded-xl border border-border/80 bg-white px-6 py-3.5 text-base font-semibold text-foreground shadow-sm transition-all hover:bg-muted active:scale-[0.98]"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-surface-container-lowest text-ink-primary font-label-mono text-xs uppercase tracking-wider rounded border border-ink-primary transition-all hover:bg-secondary-fixed shadow-editorial hover:-translate-y-1"
             >
-              <span>View Frontend Path</span>
+              <span className="material-symbols-outlined text-[18px]">account_tree</span>
+              <span>See Frontend Path</span>
             </Link>
           </div>
+        </div>
 
-          {/* Value props ticker */}
-          <div className="mt-14 flex flex-wrap items-center justify-center gap-6 text-xs sm:text-sm font-medium text-muted-foreground">
-            <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="h-4 w-4 text-teal-600" />
-              Topological Pre-requisites
-            </span>
-            <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="h-4 w-4 text-indigo-600" />
-              100% Free & Open Access
-            </span>
-            <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="h-4 w-4 text-emerald-600" />
-              Zero Outdated Content
-            </span>
+        {/* Hero Visual: Technical Diagram Blueprint */}
+        <div className="flex-1 w-full relative">
+          <div className="absolute inset-0 bg-secondary-fixed/40 rounded-xl transform rotate-2 border border-ink-primary" />
+          <div className="relative bg-paper-bg border-2 border-ink-primary rounded-xl p-8 shadow-editorial-lg flex flex-col gap-6">
+            {/* Header */}
+            <div className="flex justify-between items-center border-b border-ink-primary pb-4">
+              <span className="font-label-mono text-xs text-ink-primary uppercase tracking-widest">
+                Blueprint: Frontend DAG
+              </span>
+              <span className="material-symbols-outlined text-ink-primary opacity-60">
+                drafts
+              </span>
+            </div>
+
+            {/* Diagram Flow */}
+            <div className="relative flex flex-col items-center gap-4 py-2">
+              {/* Node 1 */}
+              <div className="w-full flex items-center gap-4 bg-highlight-yellow border border-ink-primary rounded p-4 relative z-10 shadow-editorial-sm transition-shadow">
+                <div className="w-8 h-8 rounded-full border border-ink-primary bg-white flex items-center justify-center flex-shrink-0">
+                  <span className="material-symbols-outlined text-[16px] text-ink-primary">code</span>
+                </div>
+                <div>
+                  <h3 className="font-headline font-bold text-sm text-ink-primary">HTML Fundamentals</h3>
+                  <p className="font-body text-xs text-on-surface-variant">Structure &amp; Semantics</p>
+                </div>
+                <span className="material-symbols-outlined text-[20px] text-emerald-600 absolute right-4 top-1/2 -translate-y-1/2">
+                  check_circle
+                </span>
+              </div>
+
+              {/* Connector */}
+              <div className="w-[2px] h-5 bg-ink-primary" />
+
+              {/* Node 2 */}
+              <div className="w-full flex items-center gap-4 bg-white border border-ink-primary rounded p-4 relative z-10 shadow-editorial-sm transition-shadow">
+                <div className="w-8 h-8 rounded-full border border-ink-primary bg-white flex items-center justify-center flex-shrink-0">
+                  <span className="material-symbols-outlined text-[16px] text-ink-primary">css</span>
+                </div>
+                <div>
+                  <h3 className="font-headline font-bold text-sm text-ink-primary">CSS Styling</h3>
+                  <p className="font-body text-xs text-on-surface-variant">Flexbox, Grid &amp; Responsive</p>
+                </div>
+                <div className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-ink-primary bg-highlight-yellow animate-pulse" />
+              </div>
+
+              {/* Connector */}
+              <div className="w-[2px] h-5 bg-ink-primary" />
+
+              {/* Node 3 */}
+              <div className="w-full flex items-center gap-4 bg-surface-container-high border border-ink-primary border-dashed rounded p-4 relative z-10 opacity-75">
+                <div className="w-8 h-8 rounded-full border border-ink-primary border-dashed bg-white flex items-center justify-center flex-shrink-0">
+                  <span className="material-symbols-outlined text-[16px] text-ink-primary">javascript</span>
+                </div>
+                <div>
+                  <h3 className="font-headline font-bold text-sm text-ink-primary">JavaScript Core</h3>
+                  <p className="font-body text-xs text-on-surface-variant">DOM, Async &amp; APIs</p>
+                </div>
+                <span className="material-symbols-outlined text-[18px] text-outline absolute right-4 top-1/2 -translate-y-1/2">
+                  lock
+                </span>
+              </div>
+            </div>
+
+            {/* Bottom decoration dots */}
+            <div className="flex justify-end gap-1.5 pt-2">
+              <div className="w-2.5 h-2.5 rounded-full border border-ink-primary" />
+              <div className="w-2.5 h-2.5 rounded-full border border-ink-primary bg-ink-primary" />
+              <div className="w-2.5 h-2.5 rounded-full border border-ink-primary" />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Value Pillars Section */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <h2 className="text-xs font-semibold uppercase tracking-wider text-primary">
-            Engineered for Mastery
-          </h2>
-          <p className="mt-2 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-            Why CPGS is different
-          </p>
-        </div>
-
-        <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          <div className="rounded-2xl border border-border/70 bg-white p-7 shadow-sm transition-all hover:shadow-md">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
-              <GitBranch className="h-6 w-6" />
-            </div>
-            <h3 className="mt-5 text-lg font-bold text-foreground">Topological Dependency DAG</h3>
-            <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-              No circular logic. Topics strictly declare prerequisites so you always know what
-              to learn first, unlocking seamless knowledge compounding.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-border/70 bg-white p-7 shadow-sm transition-all hover:shadow-md">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-teal-50 text-teal-600">
-              <Zap className="h-6 w-6" />
-            </div>
-            <h3 className="mt-5 text-lg font-bold text-foreground">AI Discovery Pipeline</h3>
-            <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-              Autonomous crawlers discover tutorials, documentation, and videos across the web,
-              evaluating relevance against concrete learning objectives.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-border/70 bg-white p-7 shadow-sm transition-all hover:shadow-md">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
-              <ShieldCheck className="h-6 w-6" />
-            </div>
-            <h3 className="mt-5 text-lg font-bold text-foreground">Human-in-the-Loop Gate</h3>
-            <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-              AI proposes; human domain experts review, score, and verify before publishing. No spam,
-              no broken links, no hallucinated guides.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Roadmaps Section */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+      {/* Featured Blueprints Section */}
+      <section className="w-full max-w-container-max mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10" id="roadmaps">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-ink-primary pb-4">
           <div>
-            <h2 className="text-xs font-semibold uppercase tracking-wider text-primary">
-              Curated Career Paths
+            <h2 className="font-headline text-3xl font-bold text-ink-primary mb-2">
+              Featured Blueprints
             </h2>
-            <p className="mt-2 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-              Featured Roadmaps
+            <p className="font-label-mono text-on-surface-variant uppercase tracking-widest">
+              Select your discipline
             </p>
           </div>
+
           <Link
             href="/roadmaps"
-            className="flex items-center gap-1 text-sm font-semibold text-primary hover:underline"
+            className="group hidden md:inline-flex items-center gap-2 font-label-mono text-ink-primary hover:text-secondary transition-colors uppercase tracking-wider"
           >
-            <span>View All Roadmaps</span>
-            <ArrowRight className="h-4 w-4" />
+            <span>View All</span>
+            <span className="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">
+              arrow_forward
+            </span>
           </Link>
         </div>
 
-        <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
           {roadmaps.map((rm) => (
             <RoadmapCard key={rm.id} roadmap={rm} featured={rm.slug === "frontend-developer"} />
           ))}

@@ -2,15 +2,6 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { fetchRoadmapBySlug } from "@/lib/api";
 import { TopicCard } from "@/components/topic-card";
-import {
-  Clock,
-  Layers,
-  ArrowLeft,
-  BookOpen,
-  CheckCircle2,
-  ListTree,
-  ChevronRight,
-} from "lucide-react";
 
 export const revalidate = 60;
 
@@ -26,7 +17,6 @@ export default async function RoadmapDetailPage({ params }: PageProps) {
     notFound();
   }
 
-  // Calculate totals
   const totalTopics = roadmap.sections.reduce(
     (acc, sec) => acc + sec.topics.length,
     0
@@ -39,124 +29,119 @@ export default async function RoadmapDetailPage({ params }: PageProps) {
   );
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Back Link & Breadcrumbs */}
-      <nav className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
-        <Link href="/roadmaps" className="flex items-center gap-1 hover:text-foreground transition-colors">
-          <ArrowLeft className="h-3.5 w-3.5" />
-          <span>All Roadmaps</span>
-        </Link>
-        <ChevronRight className="h-3.5 w-3.5" />
-        <span className="text-foreground font-semibold">{roadmap.title}</span>
-      </nav>
+    <div className="flex flex-col w-full relative">
+      {/* Grid Background Overlay for Notebook Feel */}
+      <div className="absolute inset-0 pointer-events-none opacity-20 bg-notebook-grid" />
 
-      {/* Hero Header */}
-      <div className="mt-6 rounded-3xl border border-border/80 bg-white p-6 shadow-sm sm:p-10">
-        <div className="flex flex-wrap items-center gap-3">
-          <span className="inline-flex items-center rounded-full bg-indigo-500/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-indigo-700 capitalize">
-            {roadmap.difficulty}
-          </span>
-          <span className="inline-flex items-center gap-1 text-xs font-medium text-muted-foreground">
-            <CheckCircle2 className="h-4 w-4 text-teal-600" />
-            Verified Seed v{roadmap.seed_version}
-          </span>
-        </div>
+      <div className="max-w-container-max mx-auto w-full px-4 sm:px-6 lg:px-8 py-12 relative z-10">
+        {/* Header Section */}
+        <div className="mb-12">
+          <nav className="flex items-center gap-2 mb-6 font-label-mono text-on-surface-variant uppercase tracking-wider text-xs">
+            <Link href="/roadmaps" className="hover:text-ink-primary transition-colors">
+              Roadmaps
+            </Link>
+            <span className="material-symbols-outlined text-[16px]">chevron_right</span>
+            <span className="text-ink-primary font-bold">{roadmap.title}</span>
+          </nav>
 
-        <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
-          {roadmap.title} Roadmap
-        </h1>
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 border-b-2 border-ink-primary pb-8">
+            <div className="max-w-3xl">
+              <h1 className="font-headline text-4xl sm:text-5xl font-extrabold text-ink-primary mb-4">
+                {roadmap.title}
+              </h1>
+              <p className="font-body text-base sm:text-lg text-on-surface-variant max-w-2xl leading-relaxed">
+                {roadmap.description ||
+                  "Step-by-step developer blueprint with curated resources and prerequisite DAG structure."}
+              </p>
+            </div>
 
-        <p className="mt-3 max-w-3xl text-base text-muted-foreground leading-relaxed">
-          {roadmap.description || "Follow this structured step-by-step path to master all key competencies."}
-        </p>
-
-        {/* Roadmap Stats Bar */}
-        <div className="mt-8 flex flex-wrap items-center gap-6 border-t border-border/60 pt-6 text-sm">
-          <div className="flex items-center gap-2">
-            <Layers className="h-4 w-4 text-primary" />
-            <span className="font-semibold text-foreground">{roadmap.sections.length}</span>
-            <span className="text-muted-foreground">Sections</span>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <ListTree className="h-4 w-4 text-teal-600" />
-            <span className="font-semibold text-foreground">{totalTopics}</span>
-            <span className="text-muted-foreground">Topics</span>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <Clock className="h-4 w-4 text-indigo-600" />
-            <span className="font-semibold text-foreground">~{totalHours} hrs</span>
-            <span className="text-muted-foreground">Estimated Total</span>
+            <div className="flex flex-wrap gap-3 font-label-mono text-xs">
+              <div className="flex items-center gap-2 border border-ink-primary bg-surface-container px-3 py-1.5 rounded text-on-surface">
+                <span className="material-symbols-outlined text-[18px]">signal_cellular_alt</span>
+                <span className="uppercase">{roadmap.difficulty}</span>
+              </div>
+              <div className="flex items-center gap-2 border border-ink-primary bg-surface-container px-3 py-1.5 rounded text-on-surface">
+                <span className="material-symbols-outlined text-[18px]">schedule</span>
+                <span>~{totalHours} HOURS</span>
+              </div>
+              <div className="flex items-center gap-2 border border-ink-primary bg-highlight-yellow px-3 py-1.5 rounded text-ink-primary font-bold shadow-editorial-sm">
+                <span className="material-symbols-outlined text-[18px]">menu_book</span>
+                <span>{totalTopics} TOPICS</span>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Main Roadmap Outline & Sidebar Layout */}
-      <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-4">
-        {/* Sticky Table of Contents on Large Screens */}
-        <aside className="hidden lg:block lg:col-span-1">
-          <div className="sticky top-24 rounded-2xl border border-border/80 bg-white p-5 shadow-sm">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-foreground flex items-center gap-1.5">
-              <BookOpen className="h-4 w-4 text-primary" />
-              Table of Contents
-            </h3>
-            <ul className="mt-4 space-y-2 text-sm">
-              {roadmap.sections.map((sec, idx) => (
-                <li key={sec.id}>
+        {/* Main Layout: Sticky Sidebar + Roadmap Path */}
+        <div className="flex flex-col lg:flex-row gap-12 relative">
+          {/* Sticky Navigation Sidebar */}
+          <aside className="hidden lg:block w-64 flex-shrink-0">
+            <div className="sticky top-28 flex flex-col gap-4 border border-ink-primary bg-paper-bg p-6 rounded-xl shadow-editorial">
+              <h3 className="font-label-mono text-xs text-on-surface-variant uppercase mb-2">
+                Sections
+              </h3>
+              <nav className="flex flex-col gap-3 font-body text-sm">
+                {roadmap.sections.map((sec, idx) => (
                   <a
+                    key={sec.id}
                     href={`#section-${sec.id}`}
-                    className="flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                    className="flex items-center justify-between font-medium text-on-surface-variant hover:text-ink-primary transition-colors group"
                   >
-                    <span className="flex h-5 w-5 items-center justify-center rounded-md bg-indigo-50 font-mono text-[11px] font-bold text-indigo-700">
-                      {idx + 1}
+                    <span>
+                      0{idx + 1}. {sec.title}
                     </span>
-                    <span className="truncate">{sec.title}</span>
+                    <span className="w-2 h-2 rounded-full bg-highlight-yellow border border-ink-primary opacity-0 group-hover:opacity-100 transition-opacity" />
                   </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </aside>
+                ))}
+              </nav>
 
-        {/* Vertical Section Outline */}
-        <div className="space-y-12 lg:col-span-3">
-          {roadmap.sections.map((section, secIdx) => (
-            <section
-              key={section.id}
-              id={`section-${section.id}`}
-              className="scroll-mt-24 rounded-3xl border border-border/70 bg-white p-6 shadow-sm sm:p-8"
-            >
-              {/* Section Header */}
-              <div className="flex items-start justify-between gap-4 border-b border-border/60 pb-4">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-brand text-white font-bold text-sm shadow-sm">
-                    {secIdx + 1}
-                  </div>
-                  <div>
-                    <h2 className="text-xl font-bold tracking-tight text-foreground">
-                      {section.title}
-                    </h2>
-                    <span className="text-xs text-muted-foreground">
-                      {section.topics.length} topic{section.topics.length === 1 ? "" : "s"}
-                    </span>
-                  </div>
+              <div className="mt-6 pt-6 border-t border-ink-primary">
+                <h3 className="font-label-mono text-xs text-on-surface-variant uppercase mb-3">
+                  Your Progress
+                </h3>
+                <div className="h-2 w-full bg-surface-container border border-ink-primary rounded-full overflow-hidden">
+                  <div className="h-full bg-emerald-500 w-[0%] border-r border-ink-primary" />
+                </div>
+                <div className="flex justify-between mt-2 font-label-mono text-[11px] text-on-surface-variant">
+                  <span>0 / {totalTopics} Completed</span>
+                  <span>0%</span>
                 </div>
               </div>
+            </div>
+          </aside>
 
-              {/* Topics List */}
-              <div className="mt-6 space-y-3.5">
-                {section.topics.map((topic, topicIdx) => (
-                  <TopicCard
-                    key={topic.id}
-                    topic={topic}
-                    roadmapSlug={roadmap.slug}
-                    index={topicIdx}
-                  />
-                ))}
-              </div>
-            </section>
-          ))}
+          {/* Roadmap Sections */}
+          <div className="flex-1 max-w-4xl pb-24 space-y-16">
+            {roadmap.sections.map((section, secIdx) => (
+              <section key={section.id} id={`section-${section.id}`} className="scroll-mt-28 relative">
+                {/* Section Header */}
+                <div className="flex items-baseline gap-4 mb-6">
+                  <span className="font-headline text-3xl font-extrabold text-ink-primary/20 hidden lg:block">
+                    0{secIdx + 1}
+                  </span>
+                  <h2 className="font-headline font-bold text-2xl text-ink-primary bg-surface-container-lowest inline-block px-4 py-2 border border-ink-primary shadow-editorial-sm">
+                    {section.title}
+                  </h2>
+                </div>
+
+                {/* Section Topics */}
+                <div className="flex flex-col gap-4 pl-0 lg:pl-8">
+                  {section.topics.map((topic, topicIdx) => (
+                    <div key={topic.id} className="flex flex-col">
+                      <TopicCard
+                        topic={topic}
+                        roadmapSlug={roadmap.slug}
+                        index={topicIdx}
+                      />
+                      {topicIdx < section.topics.length - 1 && (
+                        <div className="w-[2px] h-4 bg-ink-primary ml-6 my-1" />
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </section>
+            ))}
+          </div>
         </div>
       </div>
     </div>

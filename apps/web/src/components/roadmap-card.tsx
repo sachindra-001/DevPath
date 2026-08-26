@@ -1,80 +1,75 @@
 import Link from "next/link";
 import { RoadmapSummary } from "@/types/api";
-import { ArrowRight, Clock, BookOpen, Layers, CheckCircle2 } from "lucide-react";
 
 interface RoadmapCardProps {
   roadmap: RoadmapSummary;
   featured?: boolean;
 }
 
-export function RoadmapCard({ roadmap, featured = false }: RoadmapCardProps) {
-  const getDifficultyBadge = (diff: string) => {
-    switch (diff) {
-      case "beginner":
-        return "bg-emerald-500/10 text-emerald-700 border-emerald-500/20";
-      case "intermediate":
-        return "bg-indigo-500/10 text-indigo-700 border-indigo-500/20";
-      case "advanced":
-        return "bg-purple-500/10 text-purple-700 border-purple-500/20";
-      default:
-        return "bg-gray-500/10 text-gray-700 border-gray-500/20";
-    }
-  };
+export function RoadmapCard({ roadmap }: RoadmapCardProps) {
+  const isFrontend = roadmap.slug === "frontend-developer";
+  const bgImg = isFrontend
+    ? "https://lh3.googleusercontent.com/aida-public/AB6AXuBiplp18IlJakOMj7b4MAcPhq95xww1gdw0iLaVoa3cbu3JMTyRsfCdGGjIHcSC5oKhemgcGj4Ak-wFDep-E1Kig2Urzs2ir7nRhghFoPCXAru7SWXTGf5aTxKezHokyyIPi6oBf3Yy28XvwXgpHV34tuMXSnfdjhvH6Z2NgRPld2NzgzwlqcuLYIr26PhoMaTC79NtxrQY1rGgxquO8UtIIOaRDzmFWpKjgkoURLi1uJagyd7QFo38"
+    : "https://lh3.googleusercontent.com/aida-public/AB6AXuBUZ90kf4-7Jauzcvm1obu3qrhQfYA_yP44vtPzZuzRYrXZZ-2hehBhW39L4CB8c82ZBH0hhly2TyR5Ew4eD-D4gQHLy6pmfQ8eQOvtBTj5qvWZ-75Cu2xVSR2x8MsmUldHPmjYNMKerLtkaTwKtdGlB_GiK2ABTNA_x7JrGOo_Ue48FjxmZJ15LoqBpATGCDyu-PP1PDmMqKMH7xymMvt1AmYjgV1YQZCga83iuNnLA0IDpVAGmIEx";
 
   return (
-    <div
-      className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl ${
-        featured ? "ring-1 ring-primary/20 bg-gradient-subtle" : ""
-      }`}
+    <Link
+      href={`/roadmaps/${roadmap.slug}`}
+      className="group flex flex-col bg-surface-container-lowest border border-ink-primary rounded-xl overflow-hidden hover:shadow-editorial-lg hover:-translate-y-1 transition-all duration-300 shadow-editorial"
     >
-      <div>
-        {/* Top Badges */}
-        <div className="flex items-center justify-between gap-2">
-          <span
-            className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wider capitalize ${getDifficultyBadge(
-              roadmap.difficulty
-            )}`}
-          >
-            {roadmap.difficulty}
-          </span>
-          <span className="flex items-center gap-1 text-xs font-medium text-muted-foreground">
-            <CheckCircle2 className="h-3.5 w-3.5 text-teal-600" />
-            Verified Seed
+      {/* Header Image with Technical Illustration */}
+      <div className="h-48 border-b border-ink-primary relative overflow-hidden bg-secondary-fixed-dim">
+        <div
+          className="absolute inset-0 bg-cover bg-center mix-blend-multiply opacity-80 transition-transform duration-500 group-hover:scale-105"
+          style={{ backgroundImage: `url('${bgImg}')` }}
+        />
+        <div className="absolute top-4 left-4 bg-paper-bg border border-ink-primary px-2.5 py-1 rounded font-label-mono text-[10px] text-ink-primary uppercase tracking-widest">
+          Seed v{roadmap.seed_version} · {roadmap.difficulty}
+        </div>
+      </div>
+
+      {/* Card Content */}
+      <div className="p-6 flex flex-col flex-1">
+        <div className="flex items-center gap-2 mb-3">
+          <span className="w-3 h-3 rounded-full bg-highlight-yellow border border-ink-primary" />
+          <span className="font-label-mono text-on-surface-variant uppercase tracking-wider">
+            {isFrontend ? "Web Dev" : "Data & Analytics"}
           </span>
         </div>
 
-        {/* Title */}
-        <h3 className="mt-4 text-xl font-bold tracking-tight text-foreground transition-colors group-hover:text-primary">
+        <h3 className="font-headline font-bold text-xl text-ink-primary mb-2 group-hover:text-secondary transition-colors">
           {roadmap.title}
         </h3>
 
-        {/* Description */}
-        <p className="mt-2 text-sm text-muted-foreground line-clamp-3 leading-relaxed">
-          {roadmap.description || "Master essential technical concepts step by step."}
+        <p className="font-body text-sm text-on-surface-variant mb-6 flex-1 line-clamp-3 leading-relaxed">
+          {roadmap.description || "Step-by-step developer roadmap with curated resources and prerequisites."}
         </p>
-      </div>
 
-      {/* Footer Info & Action */}
-      <div className="mt-6 border-t border-border/60 pt-4">
-        <div className="flex items-center justify-between text-xs text-muted-foreground">
-          <span className="flex items-center gap-1.5 font-medium">
-            <Layers className="h-4 w-4 text-primary" />
-            Structured DAG
-          </span>
-          <span className="flex items-center gap-1.5 font-medium">
-            <Clock className="h-4 w-4 text-teal-600" />
-            Flexible Pace
+        {/* Footer */}
+        <div className="flex items-center justify-between border-t border-ink-primary pt-4 mt-auto">
+          <div className="flex -space-x-2">
+            <div className="w-7 h-7 rounded-full border border-ink-primary bg-surface-container-high flex items-center justify-center text-ink-primary">
+              <span className="material-symbols-outlined text-[14px]">
+                {isFrontend ? "code" : "database"}
+              </span>
+            </div>
+            <div className="w-7 h-7 rounded-full border border-ink-primary bg-surface-container-high flex items-center justify-center text-ink-primary">
+              <span className="material-symbols-outlined text-[14px]">
+                {isFrontend ? "css" : "bar_chart"}
+              </span>
+            </div>
+            <div className="w-7 h-7 rounded-full border border-ink-primary bg-surface-container-high flex items-center justify-center text-ink-primary">
+              <span className="material-symbols-outlined text-[14px]">
+                {isFrontend ? "javascript" : "table_view"}
+              </span>
+            </div>
+          </div>
+
+          <span className="font-label-mono text-ink-primary group-hover:underline flex items-center gap-1">
+            Start Path <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
           </span>
         </div>
-
-        <Link
-          href={`/roadmaps/${roadmap.slug}`}
-          className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-muted py-2.5 text-sm font-semibold text-foreground transition-all duration-200 group-hover:bg-gradient-brand group-hover:text-white group-hover:shadow-md group-hover:shadow-indigo-500/20"
-        >
-          <span>View Roadmap</span>
-          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-        </Link>
       </div>
-    </div>
+    </Link>
   );
 }
