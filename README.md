@@ -46,13 +46,33 @@ cd apps/api && alembic upgrade head && cd ../..
 python scripts/seed-admin.py           # reads ADMIN_* from .env, idempotent
 ```
 
-### 5. Frontend
+### 5. Ingest Roadmap Seeds (FR-09, Phase 2)
+
+```bash
+python database/seeder.py --all                # ingests all seeds in database/seeds/
+python database/seeder.py --roadmap frontend-developer # or seed single roadmap
+```
+
+### 6. Frontend
 
 ```bash
 cd apps/web
 npm install
 npm run dev                            # http://localhost:3000
 ```
+
+## Adding or Updating Roadmaps (AD-8, FR-09)
+
+Roadmaps are stored as versioned JSON in `database/seeds/`. To author or update a roadmap:
+1. Create or edit `database/seeds/<roadmap-slug>.json` defining ordered sections, topics, estimated hours, learning objectives, and `depends_on` prerequisite slugs.
+2. Validate the seed DAG and schema:
+   ```bash
+   python scripts/validate-seeds.py database/seeds/<roadmap-slug>.json
+   ```
+3. Ingest into the database:
+   ```bash
+   python database/seeder.py --roadmap <roadmap-slug>
+   ```
 
 ## Repository layout (DESIGN.md §31)
 
@@ -69,3 +89,4 @@ scripts/          dev utilities
 
 - Branches: `phase/N-*` per phase, squash-merged to `main` after exit criteria pass
 - Conventional Commits; CI gates: lint · typecheck · tests · build
+

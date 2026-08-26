@@ -97,6 +97,32 @@ def get_current_user(
     return user
 
 
+def get_optional_current_user(
+    db: Annotated[Session, Depends(get_db)],
+    cpgs_access_token: Annotated[str | None, Cookie()] = None,
+    authorization: Annotated[str | None, Header()] = None,
+) -> User | None:
+    """Extract and validate user if token present, otherwise return None without throwing."""
+    token: str | None = None
+    if cpgs_access_token:
+        token = cpgs_access_token
+    elif authorization and authorization.startswith("Bearer "):
+        token = authorization.removeprefix("Bearer ").strip()
+
+    if not token:
+        return None
+
+    try:
+        payload = decode_access_token(token)
+        user_id_str = payload.get("sub")
+        if not user_id_str:
+            return None
+        user_id = uuid.UUID(user_id_str)
+        return db.get(User, user_id)
+    except Exception:
+        return None
+
+
 def require_admin(
     current_user: Annotated[User, Depends(get_current_user)],
 ) -> User:
@@ -107,3 +133,4 @@ def require_admin(
             detail={"code": "forbidden", "message": "Admin privileges required."},
         )
     return current_user
+
