@@ -1,0 +1,41 @@
+name: cpgs
+
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-cpgs}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-cpgs_dev_password}
+      POSTGRES_DB: ${POSTGRES_DB:-cpgs}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - .pgdata:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-cpgs} -d ${POSTGRES_DB:-cpgs}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      # inside the compose network the DB host is the `db` service
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-cpgs}:${POSTGRES_PASSWORD:-cpgs_dev_password}@db:5432/${POSTGRES_DB:-cpgs}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./apps/api:/srv/apps/api
+      - ./ai:/srv/ai
+    depends_on:
+      db:
+        condition: service_healthy
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+# web (apps/web) runs on the host via npm — see README.md
