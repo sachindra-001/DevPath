@@ -1,0 +1,86 @@
+{
+  "slug": "frontend-developer",
+  "title": "Frontend Developer",
+  "description": "Step by step guide to becoming a modern frontend developer in 2026.",
+  "difficulty": "beginner",
+  "seed_version": 1,
+  "sections": [
+    {
+      "title": "Internet & Fundamentals",
+      "order": 1,
+      "topics": [
+        {
+          "slug": "how-the-internet-works",
+          "title": "How the Internet Works",
+          "difficulty": "beginner",
+          "estimated_hours": 4,
+          "description": "Understand clients, servers, IP addresses, DNS, and HTTP basics.",
+          "learning_objectives": [
+            "Explain client-server model",
+            "Describe DNS lookup flow",
+            "Understand HTTP request/response cycle"
+          ],
+          "depends_on": []
+        },
+        {
+          "slug": "html-basics",
+          "title": "HTML Basics",
+          "difficulty": "beginner",
+          "estimated_hours": 6,
+          "description": "Semantic markup, forms, accessibility, and modern HTML5 APIs.",
+          "learning_objectives": [
+            "Structure documents using semantic HTML elements",
+            "Build accessible forms with proper labels and validation",
+            "Integrate media elements correctly"
+          ],
+          "depends_on": ["how-the-internet-works"]
+        },
+        {
+          "slug": "css-fundamentals",
+          "title": "CSS Fundamentals",
+          "difficulty": "beginner",
+          "estimated_hours": 8,
+          "description": "Box model, selectors, flexbox, grid, responsive design, and CSS variables.",
+          "learning_objectives": [
+            "Master the CSS Box Model",
+            "Implement responsive layouts using Flexbox and Grid",
+            "Apply modern CSS variables and transitions"
+          ],
+          "depends_on": ["html-basics"]
+        }
+      ]
+    },
+    {
+      "title": "JavaScript Core",
+      "order": 2,
+      "topics": [
+        {
+          "slug": "js-basics",
+          "title": "JavaScript Basics",
+          "difficulty": "beginner",
+          "estimated_hours": 10,
+          "description": "Variables, types, control flow, functions, and DOM manipulation.",
+          "learning_objectives": [
+            "Declare variables and understand scope",
+            "Write modular functions and array methods",
+            "Manipulate the DOM dynamically and handle events"
+          ],
+          "depends_on": ["html-basics", "css-fundamentals"]
+        },
+        {
+          "slug": "async-javascript",
+          "title": "Asynchronous JavaScript",
+          "difficulty": "intermediate",
+          "estimated_hours": 8,
+          "description": "Event loop, Promises, async/await, and Fetch API.",
+          "learning_objectives": [
+            "Explain JavaScript event loop and concurrency",
+            "Handle asynchronous operations with Promises and async/await",
+            "Make HTTP requests with the Fetch API"
+          ],
+          "depends_on": ["js-basics"]
+        }
+      ]
+    }
+  ]
+}

@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     database_url: str = "postgresql+psycopg://cpgs:cpgs_dev_password@localhost:5432/cpgs"
 
     # Auth (DESIGN.md §23)
-    jwt_secret: str = "dev-only-change-me"
+    jwt_secret: str = "dev-only-change-me-to-a-secure-random-secret-key-32-chars"
     jwt_algorithm: str = "HS256"
     access_token_expire_minutes: int = 15
     refresh_token_expire_days: int = 7

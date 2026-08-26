@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.v1.router import api_v1_router
 from app.core.config import get_settings
+from app.core.middleware import CSRFMiddleware
 
 
 def create_app() -> FastAPI:
@@ -23,6 +24,7 @@ def create_app() -> FastAPI:
     )
 
     # CSRF middleware wired in the auth slice (§23.3)
+    app.add_middleware(CSRFMiddleware)
 
     app.include_router(api_v1_router, prefix="/api/v1")
     return app

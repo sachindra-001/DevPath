@@ -1,0 +1,60 @@
+{
+  "slug": "data-analyst",
+  "title": "Data Analyst",
+  "description": "Master SQL, Python, data visualization, and statistical analysis in 2026.",
+  "difficulty": "beginner",
+  "seed_version": 1,
+  "sections": [
+    {
+      "title": "SQL & Relational Databases",
+      "order": 1,
+      "topics": [
+        {
+          "slug": "sql-fundamentals",
+          "title": "SQL Fundamentals",
+          "difficulty": "beginner",
+          "estimated_hours": 8,
+          "description": "SELECT, WHERE, JOINs, aggregations, and subqueries.",
+          "learning_objectives": [
+            "Write basic and complex SQL queries",
+            "Perform INNER, LEFT, and FULL outer joins",
+            "Use GROUP BY and aggregate functions"
+          ],
+          "depends_on": []
+        },
+        {
+          "slug": "sql-advanced-analytics",
+          "title": "Advanced SQL & Window Functions",
+          "difficulty": "intermediate",
+          "estimated_hours": 10,
+          "description": "Window functions, CTEs, query optimization, and indexing.",
+          "learning_objectives": [
+            "Apply window functions (RANK, ROW_NUMBER, LAG, LEAD)",
+            "Structure complex queries with Common Table Expressions (CTEs)",
+            "Analyze query performance using EXPLAIN"
+          ],
+          "depends_on": ["sql-fundamentals"]
+        }
+      ]
+    },
+    {
+      "title": "Python for Data Analysis",
+      "order": 2,
+      "topics": [
+        {
+          "slug": "python-basics-data",
+          "title": "Python for Data Analytics",
+          "difficulty": "beginner",
+          "estimated_hours": 10,
+          "description": "Python data structures, Jupyter notebooks, and Pandas fundamentals.",
+          "learning_objectives": [
+            "Work with Python data types and list comprehensions",
+            "Manipulate tabular data using Pandas DataFrames",
+            "Perform data cleaning and handle missing values"
+          ],
+          "depends_on": ["sql-fundamentals"]
+        }
+      ]
+    }
+  ]
+}
